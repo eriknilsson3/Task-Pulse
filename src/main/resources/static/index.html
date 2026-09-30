@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TaskPulse — a focused task dashboard for keeping work moving.">
+  <title>TaskPulse · Focus dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">✓</div>
+        <div>
+          <span class="eyebrow">Workboard</span>
+          <h1>TaskPulse</h1>
+        </div>
+      </div>
+
+      <div class="sidebar-copy">
+        <p class="muted">Turn a busy list into a clear next step.</p>
+      </div>
+
+      <nav class="nav-list" aria-label="Task filters">
+        <button class="nav-item active" data-filter="ALL" type="button">
+          <span>All tasks</span><span class="nav-count" id="count-all">0</span>
+        </button>
+        <button class="nav-item" data-filter="TODO" type="button">
+          <span>To do</span><span class="nav-count" id="count-todo">0</span>
+        </button>
+        <button class="nav-item" data-filter="IN_PROGRESS" type="button">
+          <span>In progress</span><span class="nav-count" id="count-progress">0</span>
+        </button>
+        <button class="nav-item" data-filter="DONE" type="button">
+          <span>Done</span><span class="nav-count" id="count-done">0</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="pulse-card">
+          <span class="pulse-dot"></span>
+          <div>
+            <strong>API connected</strong>
+            <span>localhost:8088</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">Today</span>
+          <h2 id="page-title">Your task pulse</h2>
+        </div>
+        <button class="primary-button" id="open-create" type="button">＋ New task</button>
+      </header>
+
+      <section class="hero-card" aria-label="Task overview">
+        <div class="hero-copy">
+          <span class="eyebrow">Stay in motion</span>
+          <h3>Make the next action obvious.</h3>
+          <p>Capture work, move it forward, and close the loop without leaving your dashboard.</p>
+        </div>
+        <div class="hero-orbit" aria-hidden="true">
+          <span class="orbit-dot orbit-dot-a"></span>
+          <span class="orbit-dot orbit-dot-b"></span>
+          <span class="orbit-dot orbit-dot-c"></span>
+          <div class="orbit-core">TP</div>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Task statistics">
+        <article class="stat-card">
+          <span class="stat-label">Total</span>
+          <strong id="stat-total">0</strong>
+          <span class="stat-meta">Tasks on your board</span>
+        </article>
+        <article class="stat-card accent-card">
+          <span class="stat-label">In motion</span>
+          <strong id="stat-active">0</strong>
+          <span class="stat-meta">To do + in progress</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Completed</span>
+          <strong id="stat-done">0</strong>
+          <span class="stat-meta" id="stat-completion">0% of all tasks</span>
+        </article>
+      </section>
+
+      <section class="tasks-section">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Task list</span>
+            <h3 id="list-title">All tasks</h3>
+          </div>
+          <button class="ghost-button" id="refresh-tasks" type="button">Refresh</button>
+        </div>
+
+        <div class="status-banner" id="status-banner" role="status" aria-live="polite"></div>
+        <div class="task-list" id="task-list" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="task-dialog" id="task-dialog">
+    <form method="dialog" id="task-form" class="dialog-card">
+      <button class="icon-button close-button" id="close-dialog" type="button" aria-label="Close dialog">×</button>
+      <span class="eyebrow" id="dialog-eyebrow">Create</span>
+      <h3 id="dialog-title">Add a new task</h3>
+      <p class="dialog-copy">Keep the title short and make the desired outcome concrete.</p>
+
+      <input type="hidden" id="task-id">
+      <label>
+        Title
+        <input id="task-title" name="title" type="text" maxlength="100" placeholder="e.g. Walk the dog" required>
+      </label>
+      <label>
+        Description
+        <textarea id="task-description" name="description" maxlength="500" rows="4" placeholder="What needs to happen?"></textarea>
+      </label>
+      <label id="status-field" class="hidden">
+        Status
+        <select id="task-status" name="status">
+          <option value="TODO">To do</option>
+          <option value="IN_PROGRESS">In progress</option>
+          <option value="DONE">Done</option>
+        </select>
+      </label>
+
+      <div class="dialog-actions">
+        <button class="ghost-button" id="cancel-dialog" type="button">Cancel</button>
+        <button class="primary-button" id="save-task" type="submit">Create task</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
